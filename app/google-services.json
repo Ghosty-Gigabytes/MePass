@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "637127013899",
+    "firebase_url": "https://mepass-fe82e-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "mepass-fe82e",
+    "storage_bucket": "mepass-fe82e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:637127013899:android:8a825b94559ab80f89b90e",
+        "android_client_info": {
+          "package_name": "com.example.mepass"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB30BOs4kL8f3VIKrk_LvdoZYDpBrGdBmo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
