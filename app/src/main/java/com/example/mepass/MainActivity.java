@@ -8,10 +8,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +30,8 @@ public class MainActivity extends AppCompatActivity{
     EditText password;
     Button button;
     TextView registerButton, pass;
+    ImageView imageView;
+    private boolean passHidden;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +39,7 @@ public class MainActivity extends AppCompatActivity{
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
         //onStart();
+        passHidden = true;
         mAuth = FirebaseAuth.getInstance();
         button = (Button) findViewById(R.id.button_log);
         email =  findViewById(R.id.email);
@@ -110,7 +115,20 @@ public class MainActivity extends AppCompatActivity{
                 }
             }
         });
-
+        imageView = findViewById(R.id.imgPass);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (passHidden){
+                    password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                    passHidden = false;
+                }
+                else{
+                    password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                    passHidden = true;
+                }
+            }
+        });
 
     }
 

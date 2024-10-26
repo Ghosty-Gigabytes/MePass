@@ -3,11 +3,14 @@ package com.example.mepass;
 import static android.content.ContentValues.TAG;
 
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +30,8 @@ public class Register extends AppCompatActivity {
     EditText password;
     Button button;
     TextView loginButton;
+    ImageView imageView;
+    private boolean passHidden;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +39,7 @@ public class Register extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_register);
         //onStart();
+        passHidden = true;
         mAuth = FirebaseAuth.getInstance();
         button = (Button) findViewById(R.id.button_log);
         email =  findViewById(R.id.email);
@@ -98,6 +104,20 @@ public class Register extends AppCompatActivity {
                                     }
                                 }
                             });*/
+                }
+            }
+        });
+        imageView = findViewById(R.id.imgPass);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (passHidden){
+                    password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                    passHidden = false;
+                }
+                else{
+                    password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                    passHidden = true;
                 }
             }
         });
