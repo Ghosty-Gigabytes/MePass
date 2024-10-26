@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity{
     EditText email;
     EditText password;
     Button button;
-    TextView registerButton;
+    TextView registerButton, pass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +39,35 @@ public class MainActivity extends AppCompatActivity{
         button = (Button) findViewById(R.id.button_log);
         email =  findViewById(R.id.email);
         password = findViewById(R.id.password);
+        pass = findViewById(R.id.passreset);
+        pass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth auth = FirebaseAuth.getInstance();
+                String emailAddress = email.getText().toString();
+
+                if (!emailAddress.isEmpty()){
+                    auth.sendPasswordResetEmail(emailAddress)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        Log.d(TAG, "Email sent.");
+                                        Toast.makeText(MainActivity.this, "Password link sent", Toast.LENGTH_SHORT).show();
+                                    }
+                                    else {
+                                        Log.d(TAG, "Email not sent.");
+                                        Toast.makeText(MainActivity.this, "Please try again", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+                }
+                else{
+                    Log.d(TAG, "Email field empty");
+                    Toast.makeText(MainActivity.this, "E-Mail can't be empty", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
         registerButton = findViewById(R.id.registerBTN);
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,6 +75,7 @@ public class MainActivity extends AppCompatActivity{
                 startActivity(new Intent(MainActivity.this, Register.class));
             }
         });
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
