@@ -1,5 +1,6 @@
 package com.example.mepass;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -67,20 +68,32 @@ public class EditActivity extends AppCompatActivity {
 
                 db = FirebaseDatabase.getInstance();
                 ref = db.getReference();
-                ref.child("users").child(userId).child(websiteCleansed).removeValue();
-
-                ref.child("users").child(userId).child(site_name).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+                ref.child("users").child(userId).child(websiteCleansed).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()){
-                            Toast.makeText(EditActivity.this, "Credentials Updated Succesfully", Toast.LENGTH_SHORT).show();
-                            finish();
-                        } else {
-                            Toast.makeText(EditActivity.this, "Please try again", Toast.LENGTH_SHORT).show();
+                    public void onComplete(@NonNull Task<Void> taskDel) {
+                        if(taskDel.isSuccessful()){
+                            ref.child("users").child(userId).child(site_name).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()){
+                                        Toast.makeText(EditActivity.this, "Credentials Updated Succesfully", Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent(EditActivity.this, HomeActivity.class);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        startActivity(intent);
+                                    } else {
+                                        Toast.makeText(EditActivity.this, "Please try again", Toast.LENGTH_SHORT).show();
 
+                                    }
+                                }
+                            });
+                        }
+                        else {
+                            Toast.makeText(EditActivity.this, "SBI - Lunch ke baad aana", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
+
+
             }
 
 
@@ -92,12 +105,15 @@ public class EditActivity extends AppCompatActivity {
 
                 db = FirebaseDatabase.getInstance();
                 ref = db.getReference();
+
                 ref.child("users").child(userId).child(websiteCleansed).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()){
                             Toast.makeText(EditActivity.this, "Credentials Deleted Succesfully", Toast.LENGTH_SHORT).show();
-                            //finish();
+                            Intent intent = new Intent(EditActivity.this, HomeActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
                         } else {
                             Toast.makeText(EditActivity.this, "Please try again", Toast.LENGTH_SHORT).show();
 

@@ -62,11 +62,12 @@ public class MainActivity extends AppCompatActivity{
                                     if (task.isSuccessful()) {
                                         // Sign in success, update UI with the signed-in user's information
                                         Log.d(TAG, "signInWithEmail:success");
-                                        FirebaseUser user = mAuth.getCurrentUser();
+                                        //FirebaseUser user = mAuth.getCurrentUser();
                                         Toast.makeText(MainActivity.this, "Authentication Success.",
                                                 Toast.LENGTH_SHORT).show();
                                         //updateUI(user);
                                         startActivity(new Intent(MainActivity.this, HomeActivity.class));
+                                        finish();
                                     } else {
                                         // If sign in fails, display a message to the user.
                                         Log.w(TAG, "signInWithEmail:failure", task.getException());
@@ -87,11 +88,13 @@ public class MainActivity extends AppCompatActivity{
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
+        ;
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null){
-            Toast.makeText(MainActivity.this, "Logged In", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(MainActivity.this, HomeActivity.class));
-        }
+            String email_string = currentUser.getEmail();
+            mAuth.signOut();
+            email.setText(email_string);
+            }
     }
 
 

@@ -1,5 +1,7 @@
 package com.example.mepass;
 
+import static androidx.core.content.ContextCompat.startActivity;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -31,7 +33,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     private Context context;
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
-
+        
         TextView email, password, website, user;
         ImageView imageView;
         public MyViewHolder(@NonNull View itemView) {
@@ -108,9 +110,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                                 ref.child("users").child(userId).child(websiteCleansed).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
+                                        Intent intent = new Intent(context, HomeActivity.class);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        context.startActivity(intent);
                                         if (task.isSuccessful()){
                                             Toast.makeText(context, "Credentials Deleted Succesfully", Toast.LENGTH_SHORT).show();
-                                            //finish();
                                         } else {
                                             Toast.makeText(context, "Please try again", Toast.LENGTH_SHORT).show();
 

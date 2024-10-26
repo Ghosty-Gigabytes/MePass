@@ -1,9 +1,13 @@
 package com.example.mepass;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -16,7 +20,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.Firebase;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,6 +33,7 @@ import java.util.ArrayList;
 
 public class HomeActivity extends AppCompatActivity {
     FloatingActionButton fab;
+    FirebaseAuth mAuth;
     RecyclerView recyclerView;
     MyAdapter myAdapter;
 
@@ -57,6 +64,9 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+        //FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+        //databaseReference.keepSynced(true);
+        //databaseReference.
         recyclerView = findViewById(R.id.recycler1);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -77,8 +87,11 @@ public class HomeActivity extends AppCompatActivity {
                 for (DataSnapshot dataSnapshot: snapshot.getChildren()){
                     DataClass dataClass = dataSnapshot.getValue(DataClass.class);
                     dataList.add(dataClass);
+                    Log.d(TAG, "signInWithEmail:" + dataClass);
                 }
-                adapter.notifyDataSetChanged();
+
+                //adapter.notifyDataSetChanged();
+
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -88,6 +101,8 @@ public class HomeActivity extends AppCompatActivity {
 
 
     }
+
+
 
 
 }

@@ -1,5 +1,6 @@
 package com.example.mepass;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -65,7 +66,9 @@ public class NewEntry extends AppCompatActivity {
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
                                 Toast.makeText(NewEntry.this, "Credentials Added Succesfully", Toast.LENGTH_SHORT).show();
-                                finish();
+                                Intent intent = new Intent(NewEntry.this, HomeActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(intent);
                             } else {
                                 Toast.makeText(NewEntry.this, "Please try again", Toast.LENGTH_SHORT).show();
                             }

@@ -65,7 +65,7 @@ public class Register extends AppCompatActivity {
                                         Toast.makeText(Register.this, "Registration success.",
                                                 Toast.LENGTH_SHORT).show();
                                         startActivity(new Intent(Register.this, HomeActivity.class));
-
+                                        finish();
                                         //updateUI(user);
                                     } else {
                                         // If sign in fails, display a message to the user.
