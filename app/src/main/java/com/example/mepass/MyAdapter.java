@@ -67,8 +67,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        // Glide.with(context).load(dataList.get(position).getImageURL()).into(holder.recyclerImage);
-        int i =0;
         String username = dataList.get(position).getUser();
         String email = dataList.get(position).getEmail();
         String website = dataList.get(position).getWebsite();
